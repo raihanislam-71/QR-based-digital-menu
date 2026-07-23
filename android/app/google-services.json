@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "76147858957",
+    "project_id": "digital-manu-fce86",
+    "storage_bucket": "digital-manu-fce86.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76147858957:android:10104bf96b7fd9ea18ff44",
+        "android_client_info": {
+          "package_name": "com.example.digital_manu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvYPxtwYLB191YP8EGYgxH_CipEU7WwvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76147858957:android:c91b2cb608f7c7d118ff44",
+        "android_client_info": {
+          "package_name": "com.example.digital_manu_admin_panal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvYPxtwYLB191YP8EGYgxH_CipEU7WwvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

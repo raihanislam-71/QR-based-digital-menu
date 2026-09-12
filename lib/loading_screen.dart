@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({super.key});
+
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
 }

@@ -393,10 +393,8 @@ class _OrderTrackingSheetState extends State<OrderTrackingSheet> {
       if (aData['createdAt'] != null && bData['createdAt'] != null) {
         final aTime = aData['createdAt'] as Timestamp;
         final bTime = bData['createdAt'] as Timestamp;
-        return bTime.compareTo(aTime); // নতুন order আগে
+        return bTime.compareTo(aTime);
       }
-
-      // createdAt না থাকলে document ID দিয়ে sort (fallback)
       return b.id.compareTo(a.id);
     });
     return docs;
@@ -520,7 +518,7 @@ class _OrderTrackingSheetState extends State<OrderTrackingSheet> {
                                 children: [
                                   // 💵 এই টেক্সটটি অর্ডার PENDING বা ACCEPTED যাই হোক না কেন, সবসময় দেখাবে
                                   Text(
-                                    "Total: ${totalPrice} Tk",
+                                    "Total: $totalPrice Tk",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

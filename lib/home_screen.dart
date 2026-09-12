@@ -7,7 +7,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'cart_manager.dart';
 import 'cart_screen.dart';
 import 'coupon_service.dart';
-import 'menu_item_model.dart';
 import 'order_tracking_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,34 +23,35 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _scannedTable = '1';
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    // _loadTableNumber();  //
+    _loadTableNumber();
     CouponService().startListeningToOrders();
   }
 
-  // Future<void> _loadTableNumber()async{  //
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _scannedTable = prefs.getString('selected_table');
-  //   });
-  // }    //
+  Future<void> _loadTableNumber() async {
+    //
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _scannedTable = prefs.getString('selected_table');
+    });
+  } //
 
   @override
   Widget build(BuildContext context) {
-
     //order tracking sheet
-    void _showOrderTrackingSheet(BuildContext context) {
+    void showOrderTrackingSheet(BuildContext context) {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (context) => OrderTrackingSheet(tableNumber: _scannedTable ?? '1'),
+        builder: (context) =>
+            OrderTrackingSheet(tableNumber: _scannedTable ?? '1'),
       );
     }
 
     //icon function
-    Widget _buildIconBadge(
+    Widget buildIconBadge(
       IconData icon,
       int count,
       VoidCallback onTap, {
@@ -144,10 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageUrl: url,
                             fit: BoxFit.cover,
                             width: double.infinity,
-                            fadeInDuration: Duration.zero,   // fade animation off
-                            fadeOutDuration: Duration.zero,  // fade animation off
-                            placeholder: (context, url) => const SizedBox.shrink(), // kisu show korbe na
-                            errorWidget: (context, url, error) => const SizedBox.shrink(),
+                            fadeInDuration: Duration.zero, // fade animation off
+                            fadeOutDuration:
+                                Duration.zero, // fade animation off
+                            placeholder: (context, url) =>
+                                const SizedBox.shrink(), // kisu show korbe na
+                            errorWidget: (context, url, error) =>
+                                const SizedBox.shrink(),
                           );
                         }).toList(),
                       ),
@@ -259,15 +262,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                     ],
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(width: 10),
                   // Notification
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('orders')
-                        .where(
-                          'tableNumber',
-                          isEqualTo: _scannedTable ?? "1",
-                        )
+                        .where('tableNumber', isEqualTo: _scannedTable ?? "1")
                         .where('status', isEqualTo: 'panding')
                         .snapshots(),
                     builder: (context, snapshot) {
@@ -275,11 +275,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? snapshot.data!.docs.length
                           : 0;
 
-                      return _buildIconBadge(
+                      return buildIconBadge(
                         Icons.notifications_active,
                         pandingOrderCount,
                         () {
-                          _showOrderTrackingSheet(context);
+                          showOrderTrackingSheet(context);
                         },
                         isNotification: true,
                       );
@@ -421,7 +421,6 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 8)],
       ),
-      // Card-er puro structure-tike Stack-e rakha hoyeche jate corner-e badge deya jay
       child: Stack(
         children: [
           Row(

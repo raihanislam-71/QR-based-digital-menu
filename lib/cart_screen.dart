@@ -25,9 +25,8 @@ class _CartScreenState extends State<CartScreen> {
       await prefs.setString('device_user_id', deviceUserId);
     }
 
-    // ১. ফায়ারবেসে অর্ডার সেন্ড করা
     await FirebaseFirestore.instance.collection('orders').add({
-      'tableNumber': '1',
+      'tableNumber': tableNo,
       'userId': deviceUserId,
       'item': Cart.items
           .map(
@@ -45,12 +44,10 @@ class _CartScreenState extends State<CartScreen> {
       'createdAt': FieldValue.serverTimestamp(),
     });
 
-    // ✅ ২. কুপন লিমিট ও কাউন্টার আপডেট লজিক (যা আপনার দরকার ছিল)
     if (appliedCoupon != null && appliedCoupon!['id'] != null) {
       String userCouponDocId = appliedCoupon!['id'];
 
       try {
-        // ফায়ারবেস থেকে লাইভ ইউজার কুপন ডকুমেন্টটি আনা
         DocumentSnapshot userCouponSnap = await FirebaseFirestore.instance
             .collection('user_coupons')
             .doc(userCouponDocId)
@@ -64,7 +61,6 @@ class _CartScreenState extends State<CartScreen> {
           int newUsedCount = currentUsedCount + 1;
 
           if (newUsedCount >= perUserLimit) {
-            // লিমিট শেষ হয়ে গেলে স্ট্যাটাস 'used' করে দেওয়া হলো যাতে আর না দেখায়
             await FirebaseFirestore.instance
                 .collection('user_coupons')
                 .doc(userCouponDocId)
@@ -74,7 +70,6 @@ class _CartScreenState extends State<CartScreen> {
             });
             debugPrint("🛑 [COUPON] Limit reached! Status marked as used.");
           } else {
-            // লিমিট বাকি থাকলে শুধু কাউন্ট ১ বাড়ানো হলো
             await FirebaseFirestore.instance
                 .collection('user_coupons')
                 .doc(userCouponDocId)

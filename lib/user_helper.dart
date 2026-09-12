@@ -10,7 +10,6 @@ class UserHelper {
     String? storedId = prefs.getString(_userIdKey);
 
     if (storedId == null) {
-      // একটি ইউনিক র্যান্ডম আইডি তৈরি করবে
       var uuid = const Uuid();
       storedId = 'guest_${uuid.v4()}';
       await prefs.setString(_userIdKey, storedId);

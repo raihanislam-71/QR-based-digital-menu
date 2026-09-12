@@ -63,7 +63,7 @@ class ItemDetailScreen extends StatelessWidget {
                         bottomLeft: Radius.circular(20),
                       )
                     ),
-                    child: Text("${discountPercent}% OFF",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                    child: Text("$discountPercent% OFF",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                   )
                 ),
             ],
